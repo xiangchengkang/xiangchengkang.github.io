@@ -105,10 +105,6 @@ top: true
 
 
 
-```html
-<video src="https://raw.githubusercontent.com/xiangchengkang/blogImage/main/img/%E9%97%AA%E7%83%81%E4%B9%8B%E7%8B%90.mp4"></video>
-```
-
 
 
 
