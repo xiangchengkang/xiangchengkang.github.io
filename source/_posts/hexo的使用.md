@@ -8,8 +8,8 @@ categories:
 toc: true
 coverImg: 
 tags: java
-top: true
-cover: true
+top: false
+cover: false
 img: 
 ---
 

@@ -12,7 +12,7 @@ tags:
 - 操作系统
 - linux
 top: false
-cover: true
+cover: false
 img: 
 
 ---

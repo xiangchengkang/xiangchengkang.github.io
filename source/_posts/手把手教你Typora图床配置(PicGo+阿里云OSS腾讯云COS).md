@@ -8,9 +8,9 @@ tags:
 - markdown
 - Typora
 categories: 教程
-top: true
+top: false
 toc: true
-cover: true
+cover: false
 img:  
 coverImg:  
 ---

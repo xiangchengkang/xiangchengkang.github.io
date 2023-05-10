@@ -11,8 +11,8 @@ tags:
 - git
 - github
 - 使用教程
-top: true
-cover: true
+top: false
+cover: false
 img: 
 ---
 
