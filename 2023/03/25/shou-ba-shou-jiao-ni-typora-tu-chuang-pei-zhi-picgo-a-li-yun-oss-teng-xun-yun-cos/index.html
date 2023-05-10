@@ -1,0 +1,1239 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="手把手教你Typora图床配置(PicGo+阿里云OSS腾讯云COS), hexo,node,博客">
+    <meta name="description" content="Gitee图床被封📢📢这段时间，平时喜欢用gitee图床写文档的同学应该都遇到了typora上传Gitee图床失败,一直报403错误的问题。在网上查了很多信息，失败的原因是Gitee仓库因为外链过多，官方加了防盗链不让用了，显然gite">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>手把手教你Typora图床配置(PicGo+阿里云OSS腾讯云COS) | 项成康のBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">项成康のBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">项成康のBlog</div>
+        <div class="logo-desc">
+            
+            hexoDemo用于介绍如何使用hexo
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/xiangchengkang/xiangchengkang.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/xiangchengkang/xiangchengkang.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">手把手教你Typora图床配置(PicGo+阿里云OSS腾讯云COS)</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/markdown/">
+                                <span class="chip bg-color">markdown</span>
+                            </a>
+                        
+                            <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/">
+                                <span class="chip bg-color">阿里云oss</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%85%BE%E8%AE%AF%E4%BA%91cos/">
+                                <span class="chip bg-color">腾讯云cos</span>
+                            </a>
+                        
+                            <a href="/tags/picgo/">
+                                <span class="chip bg-color">picgo</span>
+                            </a>
+                        
+                            <a href="/tags/Typora/">
+                                <span class="chip bg-color">Typora</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E6%95%99%E7%A8%8B/" class="post-category">
+                                教程
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-03-25
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-04-03
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    1.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    6 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Gitee图床被封📢📢"><a href="#Gitee图床被封📢📢" class="headerlink" title="Gitee图床被封📢📢"></a>Gitee图床被封📢📢</h1><p>这段时间，平时喜欢用gitee图床写文档的同学应该都遇到了typora上传Gitee图床失败,一直报403错误的问题。在网上查了很多信息，失败的原因是Gitee仓库因为外链过多，官方加了防盗链不让用了，显然gitee 被封了。</p>
+<p><img src="https://sunmingtypora.oss-cn-qingdao.aliyuncs.com/mytypora/202204081629632.png" alt="image-20220406163726705"></p>
+<p><strong>❤我只能说gitee不讲武德，韭菜没了❤</strong></p>
+<p>既然gitee图床已经传不上去了，那就赶紧更换图床吧，毕竟本地typora的很多篇文章都寄了，及时止损，目前只有各大公司提供的OSS服务比较靠谱，本篇将教你手把手使用 阿里云的OSS服务/腾讯云的COS服务搭建图床，两种对象存储服务都很不错，大家根据实际情况具体选择一种就行。<br><strong>❤️我们搭建图床的原因❤️</strong></p>
+<p>在日常使用typora写文档的时候，typora在粘贴图片之后，都是拷贝图片到本地目录，这样在分享文档给别人的时候，由于图片资源是本地的，我们每次传输文档时要么每次都附带着一个图片资源压缩包要么只能导出为pdf或者word（排版会变乱），如果我们直接发单个文件，想让别人只要需要打开typora就可以看到全部内容和图片，这个时候就要用到的图床了。<br>❤️<strong>图床的作用❤️</strong></p>
+<p>把图片存在网站上，对应的图片生成一个链接，然后利用<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=markdown%E8%AF%AD%E6%B3%95&amp;spm=1001.2101.3001.7020">markdown语法</a>插入到文本中就可以调用图片了，这样配置以后，可以提高写文档的质量和速率，轻松输出技术文档。</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/789ad12707496eac182f27be61c89806.png"></p>
+<p><strong>❤️Typora + PicGo +阿里云OSS图床 / 腾讯云COS图床配置思路❤️</strong><br>第一步：我们首先安装PicGo，并且开放PicGo的端口号，将Typora与PicGo进行关联配置。</p>
+<p>第二步：在完成上述操作后，购买对象存储服务（两者买其一即可），然后进行创建云存储空间并做好PicGo相关配置。</p>
+<p>第三步：最后我们进行Typora+图片上传测试！</p>
+<h2 id="✨安装PicGo配置Typora-非常详细"><a href="#✨安装PicGo配置Typora-非常详细" class="headerlink" title="✨安装PicGo配置Typora(非常详细)"></a>✨安装PicGo配置Typora(非常详细)</h2><h3 id="第一步：安装PicGo"><a href="#第一步：安装PicGo" class="headerlink" title="第一步：安装PicGo"></a>第一步：安装PicGo</h3><ul>
+<li><p>一款功能非常强大的图床的工具，支持<code>SM.MS</code>、<code>腾讯COS</code>、<code>GitHub图床</code>、<code>七牛云图床</code>、<code>Imgur图床</code>、<code>阿里云OSS</code>、<code>gitee</code>等多种图床平台。</p>
+</li>
+<li><p>下载</p>
+<blockquote>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/Molunerfinn/PicGo/releases">https://github.com/Molunerfinn/PicGo/releases</a></p>
+<p>根据自己电脑配置进行选择安装包，一般安装PicGo-Setup-2.3.0-beta.7-ia32.exe。</p>
+</blockquote>
+</li>
+<li><p>特点</p>
+<p>PicGo<strong>最大的特点是，可以和Typora结合使用</strong>，配置好关联之后，Typora写文章时，如果需要穿插图片，只需要将图片复制粘贴到Typora的编辑区域，就自动通过PicGo上传到指定图床，得到外网能访问的URL并展示。</p>
+</li>
+</ul>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/20230325165301.png"></p>
+<p>我们在PicGo中打开<code>PicGo设置</code>，找到<code>设置Server</code>，点击设置，点击开启<code>Server</code>，点击确定即可。</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/20230325165451.png"></p>
+<h3 id="第二步：配置Typora"><a href="#第二步：配置Typora" class="headerlink" title="第二步：配置Typora"></a>第二步：配置Typora</h3><p>我们在Typora中打开<code>文件-偏好设置</code>，选择PicGo(app)，<code>路径</code>就是安装PicGo的文件夹，选中<code>PicGo.exe</code>即可</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/20230325171648.png"></p>
+<h2 id="✨云服务1：阿里云OSS搭建图床-非常详细"><a href="#✨云服务1：阿里云OSS搭建图床-非常详细" class="headerlink" title="✨云服务1：阿里云OSS搭建图床(非常详细)"></a>✨云服务1：阿里云OSS搭建图床(非常详细)</h2><h3 id="第一步：开通阿里云对象存储"><a href="#第一步：开通阿里云对象存储" class="headerlink" title="第一步：开通阿里云对象存储"></a>第一步：开通阿里云对象存储</h3><ul>
+<li>开通阿里云对象存储<a target="_blank" rel="noopener" href="https://www.aliyun.com/product/oss%EF%BC%8C%E6%B3%A8%E5%86%8C%E9%98%BF%E9%87%8C%E4%BA%91%E8%B4%A6%E5%8F%B7%E5%90%8E,%E5%BC%80%E9%80%9A%E5%AF%B9%E8%B1%A1%E5%82%A8%E5%AD%98%EF%BC%8C%E8%BF%9B%E5%85%A5%E5%AF%B9%E8%B1%A1%E5%AD%98%E5%82%A8OSS%E7%9A%84%E6%8E%A7%E5%88%B6%E5%8F%B0%E3%80%82">https://www.aliyun.com/product/oss，注册阿里云账号后,开通对象储存，进入对象存储OSS的控制台。</a></li>
+</ul>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/0aa514785eb6d10926793a8d070785a8.png"></p>
+<h3 id="第二步：创建bucket"><a href="#第二步：创建bucket" class="headerlink" title="第二步：创建bucket"></a>第二步：创建bucket</h3><ul>
+<li>在左侧选择概览，然后在右侧Bucket管理中创建一个新的bucket</li>
+</ul>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/6ba76278fa3c5cc4ecf372ae8a949262.png"></p>
+<ul>
+<li><p>创建Bucket具体配置</p>
+<blockquote>
+<p>Bucket名字不能有大写字母、地域就近选择、存储类型选择<code>标准存储</code>，读写权限<code>公共读</code></p>
+</blockquote>
+</li>
+<li><p>创建成功后，可以在Bucket列表中查看，记住自己的访问域名和地域节点，后面会用到。</p>
+</li>
+</ul>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/6c2171b5c589100fb4752199bdfed511.png"></p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/6a97a295d9ae28927bac3e334dfec1f3.png"></p>
+<h3 id="第三步：创建AccessKey"><a href="#第三步：创建AccessKey" class="headerlink" title="第三步：创建AccessKey"></a>第三步：创建AccessKey</h3><p>页面右上角，鼠标放在头像处，在弹出的框里选择AccessKey管理，在弹出的选项框里，选择<code>继续使用</code>。</p>
+<p><img src="https://sunmingtypora.oss-cn-qingdao.aliyuncs.com/mytypora/202204081630950.png" alt="image-20220408152611026"> <img src="https://sunmingtypora.oss-cn-qingdao.aliyuncs.com/mytypora/202204081630455.png" alt="image-20220408152648508"></p>
+<p>进入后，创建一个<code>AccessKey</code>。</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/17c21f9d82463c07ef75c8a3b84b7803.png"></p>
+<p>在弹出的界面里，记住你的<code>accessKeyId</code>和<code>accessKeySecret</code>。</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/82cfd2c526f3b9642fb5727ca10f1ce9.png"></p>
+<p>第四步：了解收费标准<br>阿里云对象存储OSS的收费是独立的，有两种收费形式</p>
+<p>以充值的方式使用储存容量以及流量(默认状态)<br>按年/月收费，购买一定存储包，流量额外收费<br>目前我们购买了下OSS存储包，但是依旧要为访问图床的流量付钱，仔细算过以后，作为图床的数据量其实很小的，我们使用默认的0.12元/1GB/1个月，一年共计1.44元，远低于40GB的9元购买年储存包。<br>最后记得给阿里云账户充值几块钱，估计2块钱就可以用一年左右。</p>
+<h3 id="第五步：配置PicGo"><a href="#第五步：配置PicGo" class="headerlink" title="第五步：配置PicGo"></a>第五步：配置PicGo</h3><p>我们打开打开PicGo的主界面,在图床设置里面选择阿里云OSS，依照下面注意事项填写信息。</p>
+<p>设定Keyld：填写我们在第三步中获得的AccessKeyID</p>
+<p>设定KeySecret：填写我们在第三步中获得的AccessKeyIDSecret</p>
+<p>设定储存空间名：填写我们在第二步中填写的bucket名称</p>
+<p>确认存储区域：填写我们在第二步中查看的地域节点，注意复制的格式：只需要复制oss-cn-Xxxx即可，不需要后面的.aliyuncs.com</p>
+<p>指定存储路径：其实就是自定义一个文件夹的名字，以/结尾，它会自动在你的bucket里面创建一个文件夹，并把图片上传进去。</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/20230325190341.png"></p>
+<p>设置完以后，点击确定即可，后面我们统一测试。</p>
+<p>到这里，我们阿里云OSS的图床配置完毕了😎。</p>
+<h2 id="✨云服务2：腾讯云COS搭建图床-非常详细"><a href="#✨云服务2：腾讯云COS搭建图床-非常详细" class="headerlink" title="✨云服务2：腾讯云COS搭建图床(非常详细)"></a>✨云服务2：腾讯云COS搭建图床(非常详细)</h2><h3 id="第一步：购买腾讯云对象存储"><a href="#第一步：购买腾讯云对象存储" class="headerlink" title="第一步：购买腾讯云对象存储"></a>第一步：购买腾讯云对象存储</h3><ul>
+<li>购买腾讯云对象存储 <a target="_blank" rel="noopener" href="https://buy.cloud.tencent.com/cos">https://buy.cloud.tencent.com/cos</a></li>
+</ul>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/9e0d3aa9079e0be37b1738c8523e3c67.png"></p>
+<h3 id="第二步：创建桶并配置"><a href="#第二步：创建桶并配置" class="headerlink" title="第二步：创建桶并配置"></a>第二步：创建桶并配置</h3><ul>
+<li>相关注意信息如图所示</li>
+</ul>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/202204081630313.png"></p>
+<h3 id="第三步：申请密钥"><a href="#第三步：申请密钥" class="headerlink" title="第三步：申请密钥"></a>第三步：申请密钥</h3><ul>
+<li>前往<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/cam/capi%EF%BC%8C%E6%88%91%E4%BB%AC%E9%80%9A%E8%BF%87%E9%85%8D%E7%BD%AEAPI%E7%A7%98%E9%92%A5%E6%8B%BF%E5%88%B0%60SecretId%60%E5%92%8C%60SecretKey%60%E3%80%82">https://console.cloud.tencent.com/cam/capi，我们通过配置API秘钥拿到`SecretId`和`SecretKey`。</a></li>
+</ul>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/d8e5f38357ff996376bbd954dc02bb90.png"></p>
+<h3 id="第四步：获取其他配置信息"><a href="#第四步：获取其他配置信息" class="headerlink" title="第四步：获取其他配置信息"></a>第四步：获取其他配置信息</h3><p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/bbdafa34ad0f68d32cae393f1e7334e7.png"></p>
+<ul>
+<li>如图，我们拿到以下信息</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">APPID：13xxxxxxx
+存储空间名称：sm-13xxxxx
+存储区域：ap-nanjing<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="第五步：配置PicGO"><a href="#第五步：配置PicGO" class="headerlink" title="第五步：配置PicGO"></a>第五步：配置PicGO</h3><p>根据上面配置得到的配置信息，设置PicGo的腾讯云COS参数</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/b62066531cd551f74a6d91bf5e5c5686.png"></p>
+<p>设置完以后，点击确定即可，后面我们统一测试。</p>
+<p>到此，Typora + PicGo + 腾讯云COS 配置完毕😎。</p>
+<h2 id="✨Typora上传测试效果"><a href="#✨Typora上传测试效果" class="headerlink" title="✨Typora上传测试效果"></a>✨Typora上传测试效果</h2><p>经过上面的一系列配置之后，我们就完成了Typora的图床配置，现在我们可以使用Markdown开始写文章了，图片、截图会在粘贴之后，自动通过PicGo上传到了远端图床，效果如下：</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/img/202204081629355.gif"></p>
+<p>至此，我们就可以专心写文档了，不用花精力去处理图片，排版这些琐碎、耗时的工作，所以说图床对于经常写文的小伙伴是极力推荐的！</p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">项成康</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xiangchengkang.github.io/2023/03/25/shou-ba-shou-jiao-ni-typora-tu-chuang-pei-zhi-picgo-a-li-yun-oss-teng-xun-yun-cos/">https://xiangchengkang.github.io/2023/03/25/shou-ba-shou-jiao-ni-typora-tu-chuang-pei-zhi-picgo-a-li-yun-oss-teng-xun-yun-cos/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">项成康</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/markdown/">
+                                    <span class="chip bg-color">markdown</span>
+                                </a>
+                            
+                                <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/">
+                                    <span class="chip bg-color">阿里云oss</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%85%BE%E8%AE%AF%E4%BA%91cos/">
+                                    <span class="chip bg-color">腾讯云cos</span>
+                                </a>
+                            
+                                <a href="/tags/picgo/">
+                                    <span class="chip bg-color">picgo</span>
+                                </a>
+                            
+                                <a href="/tags/Typora/">
+                                    <span class="chip bg-color">Typora</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/03/26/a-li-yun-dui-xiang-cun-chu-oss-xian-liu-chao-guo-yu-zhi-zi-dong-guan-bi-fang-po-chan-bao-ping-an/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="阿里云对象存储 OSS 限流超过阈值自动关闭【防破产，保平安】">
+                        
+                        <span class="card-title">阿里云对象存储 OSS 限流超过阈值自动关闭【防破产，保平安】</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-26
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%95%99%E7%A8%8B/" class="post-category">
+                                    教程
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%98%BF%E9%87%8C%E4%BA%91oss/">
+                        <span class="chip bg-color">阿里云oss</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/03/24/markdown-shi-yong-jiao-cheng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="markdown使用教程">
+                        
+                        <span class="card-title">markdown使用教程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-24
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E5%85%B7/" class="post-category">
+                                    软件工具
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/markdown/">
+                        <span class="chip bg-color">markdown</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%A0%87%E8%AE%B0%E8%AF%AD%E8%A8%80/">
+                        <span class="chip bg-color">标记语言</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%BD%BB%E9%87%8F%E7%BA%A7/">
+                        <span class="chip bg-color">轻量级</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4,h5,h6'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023</span>
+            
+            <a href="/about" target="_blank">项成康</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">30.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "3";
+                        var startDate = "22";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/xiangchengkang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2043766637@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2043766637" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2043766637" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

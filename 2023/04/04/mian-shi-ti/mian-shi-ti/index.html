@@ -1,0 +1,1299 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="面试题, hexo,node,博客">
+    <meta name="description" content="JavaJDK、 JRE、JVM之间的区别一、 引言
+在Java环境配置和项目启动中，这三者的配置是项目启动的基础保证，但这三者的作用和区别呢，本文将对JVM、JRE、JDK的作用与区别进行讲解。
+注：如果只是运行Java程序,只需要JRE">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>面试题 | 项成康のBlog</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">项成康のBlog</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">项成康のBlog</div>
+        <div class="logo-desc">
+            
+            hexoDemo用于介绍如何使用hexo
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/xiangchengkang/xiangchengkang.github.io" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/xiangchengkang/xiangchengkang.github.io" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">面试题</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                                <span class="chip bg-color">面试题</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/">
+                                <span class="chip bg-color">八股文</span>
+                            </a>
+                        
+                            <a href="/tags/%E5%AE%9E%E4%B9%A0/">
+                                <span class="chip bg-color">实习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-category">
+                                面试题
+                            </a>
+                        
+                            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%85%AB%E8%82%A1%E6%96%87/" class="post-category">
+                                八股文
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-04-04
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2023-04-04
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.3k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    15 分
+                </div>
+                
+
+                
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="far fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+        <!-- 是否加载使用自带的 prismjs. -->
+        <link rel="stylesheet" href="/libs/prism/prism.min.css">
+        
+
+        
+        <!-- 代码块折行 -->
+        <style type="text/css">
+            code[class*="language-"], pre[class*="language-"] { white-space: pre-wrap !important; }
+        </style>
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h1><h2 id="JDK、-JRE、JVM之间的区别"><a href="#JDK、-JRE、JVM之间的区别" class="headerlink" title="JDK、 JRE、JVM之间的区别"></a>JDK、 JRE、JVM之间的区别</h2><p><strong>一、</strong> <strong>引言</strong></p>
+<p>在Java环境配置和项目启动中，这三者的配置是项目启动的基础保证，但这三者的作用和区别呢，本文将对JVM、JRE、JDK的作用与区别进行讲解。</p>
+<p>注：如果只是运行Java程序,只需要JRE即可，JRE通常非常小，其中包含了JVM，如果要开发Java程序，就需要安装JDK。</p>
+<p><strong>二、方法</strong></p>
+<ol>
+<li><p>JVM,JRE,JDK定义<br>JVM(Java Virtual Machine)就是一个虚拟的用于执行bytecode字节码的”虚拟计算机”。一般与OS操作系统打交道。<br>JRE(Java Runtime Environment)，包含Java虚拟机、库函数、运行Java应用程序所必须的文件。<br>JDK(Java Development Kit),包含JRE,以及增加编译器和调试器等用于程序开发的文件。</p>
+</li>
+<li><p>三者的区别与联系</p>
+<ol>
+<li><p>联系<br>JVM不能单独搞定class的执行，解释class的时候JVM需要调用解释所需要的类库lib。在JDK下面的JRE目录里面有两个文件夹bin和lib，在这里可以认为bin就是JVM，lib中则是JVM工作所需要的类库，而JVM和lib和起来就称为JRE。JVM+lib=JRE。总体来说，就是我们利用JDK(调用Java Api)开发了属于我们自己的Java程序后，通过JDK中的编译程序(javac)将我们的文本java文件编译成Java字节码，在JRE上运行这些java字节码，JVM解析这些字节码，映射到CPU指令集或OS的系统调用。</p>
+</li>
+<li><p>区别</p>
+<p>JDK和JRE区别：在bin文件夹目录下会发现，JDK有javac.exe而JRE里面没有，javac指令是用来将java文件编译成class文件的，这是开发者需要的，而用户(运行程序的人)是不需要的。JDK还有jar.exe，javadoc.exe等等用于开发的可执行指令文件。这也证实了一个是开发环境，一个是运行环境。</p>
+<p>JRE和JVM区别：JVM并不代表就可以执行class了，JVM执行.class还需要JRE下的lib类库的支持，尤其是rt.jar。</p>
+</li>
+</ol>
+</li>
+</ol>
+<p>通过对JVM,JRE,JDK的描述，我们就能看出三者之间的关系：</p>
+<p>JDK: javac,jar,debugging,tools,javap</p>
+<p>JRE：java,javaw,libraries,rt_jar</p>
+<p>JVM：just in Time Compiler(JIT)</p>
+<p><strong>三、结语</strong></p>
+<p>搞懂三者的关系，能够让我们对java底层运行原理有一个良好的认知基础，以及加强我们对环境配置的了解。</p>
+<hr>
+<blockquote>
+<p>弄懂 JRE、JDK、JVM 之间的区别与联系</p>
+</blockquote>
+<p>其实很多 Java 程序员在写了很多代码后，你问他 jre 和 jdk 之间有什么关系，jvm 又是什么东西，很多人不知所云。本篇不会讲述 jvm 底层是如何与不同的系统进行交互的，而主要理清楚三者之间的区别，搞清楚我们写的 xxx.java 文件是被谁编译，又被谁执行，为什么能够跨平台运行。</p>
+<p>首先，我们分别对这三者进行阐述。</p>
+<p><strong>JVM</strong> ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。它只认识 xxx.class 这种类型的文件，它能够将 class 文件中的字节码指令进行识别并调用操作系统向上的 API 完成动作。所以说，jvm 是 Java 能够跨平台的核心，具体的下文会详细说明。</p>
+<p><strong>JRE</strong> ：英文名称（Java Runtime Environment），我们叫它：Java 运行时环境。它主要包含两个部分，jvm 的标准实现和 Java 的一些基本类库。它相对于 jvm 来说，多出来的是一部分的 Java 类库。</p>
+<p><strong>JDK</strong> ：英文名称（Java Development Kit），Java 开发工具包。jdk 是整个 Java 开发的核心，它集成了 jre 和一些好用的小工具。例如：javac.exe，java.exe，jar.exe 等。</p>
+<p>显然，这三者的关系是：一层层的嵌套关系。<strong>JDK&gt;JRE&gt;JVM</strong>。</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%BC%84%E6%87%82%20JRE%E3%80%81JDK%E3%80%81JVM%20%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB.png" alt="image-20230404153609234"></p>
+<p><strong>总结：</strong><br><code>JDK = JRE + Java开发工具</code><br><code>JRE = JVM + Java类库</code></p>
+<h2 id="为什么我们的电脑在装完-jdk-后会有两个版本的-jre？"><a href="#为什么我们的电脑在装完-jdk-后会有两个版本的-jre？" class="headerlink" title="为什么我们的电脑在装完 jdk 后会有两个版本的 jre？"></a>为什么我们的电脑在装完 jdk 后会有两个版本的 jre？</h2><p>留心的同学可能会发现，我们的 jdk 安装成功后，在 C:\Program Files\Java 目录会是这样的（这里，我是装的 jdk1.8 的版本）</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E9%9D%A2%E8%AF%95%E9%A2%98/20180304203124914.jpg" alt="image"></p>
+<p>而 jdk 的子目录下也存在一个 jre。</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E9%9D%A2%E8%AF%95%E9%A2%98/20180304203133423.jpg" alt="image"></p>
+<p>这两个不同版本的 jre 相互之间有什么联系吗？</p>
+<p>答案是：没有联系。甚至准确的来说，它俩是一样的，无论是用哪一个都是可以的。只是很多人习惯将会单独安装另一个 jre，虽然单独安装的 jre 也并没有被使用，原因可能就是刚开始大家都不清楚 jdk 和 jre 之间的关系，所以就默认的都安装上了。</p>
+<p>在 jdk 的 bin 目录下，基本上都是一些可执行文件，并且它们还不大。其实这些可执行文件只是外层的一层封装而已，这样的目的是避免输入的命令过长。例如 javac.exe 内部调用的其实是 JDK 中 lib 目录中的 tools.jar 中 com.sun.tools.javac.Main 类，也就是说这些工具只是入口而已。而实际上它们本身又都是由 Java 编写的，所以在 jdk 目录下的 jre 既提供了这些工具的运行时环境，也提供了我们编写完成的 Java 程序的运行时环境。</p>
+<p>所以，很明显，jdk 是我们的开发工具包，它集成了 jre ，因此我们在安装 jdk 的时候可以选择不再安装 jre 而直接使用 jdk 中的 jre 运行我们的 Java 程序。（但是大部分人都默认将两个都装上了）。但是如果你的电脑不是用来开发 Java 程序的，而仅仅是用来部署和运行 Java 程序的，那么完全可以不用安装 jdk，只需要安装 jre 即可。</p>
+<h2 id="Java-为什么能跨平台，实现一次编写，多处运行？"><a href="#Java-为什么能跨平台，实现一次编写，多处运行？" class="headerlink" title="Java 为什么能跨平台，实现一次编写，多处运行？"></a>Java 为什么能跨平台，实现一次编写，多处运行？</h2><p>Java 能够跨平台运行的核心在于 JVM 。不是 Java 能够跨平台，而是它的 jvm 能够跨平台。我们知道，不同的操作系统向上的 API 肯定是不同的，那么如果我们想要写一段代码调用系统的声音设备，就需要针对不同系统的 API 写出不同的代码来完成动作。</p>
+<p>而 Java 引入了字节码的概念，jvm 只能认识字节码，并将它们解释到系统的 API 调用。针对不同的系统有不同的 jvm 实现，有 Linux 版本的 jvm 实现，也有 Windows 版本的 jvm 实现，但是同一段代码在编译后的字节码是一样的。引用上面的例子，在 Java API 层面，我们调用系统声音设备的代码是唯一的，和系统无关，编译生成的字节码也是唯一的。但是同一段字节码，在不同的 jvm 实现上会映射到不同系统的 API 调用，从而实现代码的不加修改即可跨平台运行。</p>
+<h2 id="类的加载过程"><a href="#类的加载过程" class="headerlink" title="类的加载过程"></a>类的加载过程</h2><p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E9%9D%A2%E8%AF%95%E9%A2%98/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.png" alt="image-20230404142925111"></p>
+<p><strong>注意：这些阶段的顺序虽然是确定的，但是这些阶段通常都是互相交叉混合进行的，会在一个阶段中调用，激活另外一个阶段执行</strong></p>
+<h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><p>加载阶段顾名思义，也就是Class文件所代表的的 类/接口 被加载到虚拟机中。</p>
+<p>那么<strong>什么时候</strong>（类加载的时机）， <strong>谁来加载</strong>（哪个<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8&amp;spm=1001.2101.3001.7020">类加载器</a>），将<strong>哪个Class文件</strong>（Class的名称是什么）到虚拟机中呢？</p>
+<p><strong>1.什么时候加载？</strong><br>《JAVA虚拟机规范》中没有进行强制约束，由不同虚拟机来决定加载的时机，也就是不同虚拟机进行加载的时机是不同的。</p>
+<p><strong>2.谁来加载？</strong><br>通过类加载器进行加载，一个类必须和类加载器一起确定唯一性。由于本文重点阐述的是类加载的阶段，故下篇文章对类加载器进行阐述。</p>
+<p><strong>3.哪个Class文件？</strong><br>需要程序指定 类/接口的全限定名（包名+类/接口名）。</p>
+<p>因此可以得出加载阶段做的事情：</p>
+<blockquote>
+<p>1、通过一个类的全限定名来获取定义此类的二进制<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AD%97%E8%8A%82%E6%B5%81&amp;spm=1001.2101.3001.7020">字节流</a><br>2、将这个字节流所代表的的静态存储结构转换为方法区的运行时数据结构<br>3、在堆内存中生成一个代表这个类的java.ang.Class对象，作为方法区这个类的访问入口</p>
+</blockquote>
+<p><strong>获取二进制流</strong></p>
+<p>这条规则虚拟机规范中并没有指明说从哪里获取，如何获取，只是说通过全限定名获取二进制字节流就行。</p>
+<p>因此我们可以从压缩包（JAR），网络（Web Applet），加密文件（加载时动态解密），运行时生成（动态代理）…这些路径中通过类的全限定名去获取二进制字节流进行加载。</p>
+<p><strong>将字节流转换为运行时数据结构</strong></p>
+<p>要想把字节流转换成方法区的运行时数据结构，自然一定是要经过一些验证，也就是验证阶段的文件格式验证；</p>
+<p>文件格式验证阶段没有出现问题的话，接下来就会按照虚拟机中方法区的数据存储格式将数据存储到方法区之中（方法区的数据结构并没有明确规定，因此不同虚拟机实现的结构也是不一样的）。</p>
+<blockquote>
+<p>正如开篇所说，这些阶段是互相交叉混合进行的，但是他们的顺序是确定的。这个很好理解，没有加载阶段获得的二进制字节流，那么验证阶段是不知道验证什么的。</p>
+</blockquote>
+<p><strong>堆中生成Class对象</strong></p>
+<p>也就是下图中的步骤：</p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%A0%86%E4%B8%AD%E7%94%9F%E6%88%90Class%E5%AF%B9%E8%B1%A1.png" alt="image-20230404145841368"></p>
+<p><strong>特殊</strong></p>
+<p>上面所说的都是<strong>非数组类型的加载阶段</strong>，开发者可以根据自定义类加载器来获取二进制字节流，来做一些骚操作。</p>
+<p>而对于数组类来说，数组不是通过类加载器进行创建的，而是虚拟机在内存中动态构造出来的。但是数组的元素类型却需要通过类加载器来进行加载。</p>
+<blockquote>
+<p>数组元素类型就是去掉所有维度的类型,比如一个int类型的一维数组和一个int类型的二维数组，他们两个的元素类型都是int。也可以简单理解为和维度无关。</p>
+</blockquote>
+<p><strong>数组类型的加载:</strong></p>
+<p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E9%9D%A2%E8%AF%95%E9%A2%98/%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%8A%A0%E8%BD%BD.png" alt="image-20230404150428680"></p>
+<p><strong>连接</strong></p>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><blockquote>
+<p>这一步骤是确保Class文件的字节流中包含的信息要符合虚拟机规范中的要求，保证这些信息被当做代码运行后不会危害虚拟机自身的安全。</p>
+</blockquote>
+<p><strong>1.为什么需要验证阶段？</strong><br>上面的加载阶段中说过，二进制字节流的来源可以有很多，当然也可以自己手写0和1，如果不对这些字节流进行验证的话，可能会因为加载了错误或者恶意的代码使整个系统崩溃。</p>
+<p>所以字节码验证是必须的阶段，这个阶段决定了虚拟机的健壮性，使得虚拟机不那么轻易被攻击，因此在代码量和耗费的性能上来说，验证阶段的工作量在类加载过程中是占比非常大的。<br> <strong>2.验证哪些内容？</strong></p>
+<blockquote>
+<p>验证过程的描述在《JAVA虚拟机规范（Java SE 7版）》中长达130页，有兴趣的读者可以自己搜索，本文仅对整个阶段中的重要验证部分讲解。</p>
+</blockquote>
+<p><strong>2.1，文件格式验证</strong></p>
+<p>该步骤在上面的加载过程中已经提到，当加载阶段将字节流的数据存储到方法区中的数据结构中时需要对Class的文件格式进行验证。</p>
+<p><strong>当文件格式验证通过后字节流的数据信息就已经被存储到方法区中的数据结构中了，因此之后的验证阶段都不是直接对二进制流进行操作了，而是对方法区中的数据结构进行验证。</strong></p>
+<blockquote>
+<p>目的：</p>
+</blockquote>
+<p>该步骤是验证字节流是否<strong>符合Class文件格式的规范</strong>，保证字节流的数据能够<strong>正确解析并存储到方法区的数据结构中</strong>，而且<strong>当前的虚拟机版本能够对其进行处理</strong><br> 验证点，eg：</p>
+<blockquote>
+<p>1.magic是否正确<br>2.主版本号和次版本号是否在当前虚拟机版本能够处理的范围<br>3.常量池中的常量是否有不被支持的常量类型（tag标志）<br>4.是否有指向常量池中不存在的索引</p>
+</blockquote>
+<p><strong>2.2，元数据验证</strong></p>
+<blockquote>
+<p>对字节码描述的信息进行语义分析，保证其描述的信息符合《JAVA语言规范》的要求</p>
+</blockquote>
+<p><strong>简单理解就是对类的元数据信息进行验证，比如对父类的信息检查，类字段方法定义，数据类型校验</strong></p>
+<blockquote>
+<p>验证点,eg:<br>1.这个类是否有父类<br>2.这个类的父类是不是继承了不允许被继承的类（final修饰的类无法被继承）<br>3.如果这个类不是抽象类的话，是否已经实现了父类或者接口中的所有方法<br>4.类中的字段，方法是否与父类产生矛盾（修改了父类的final字段，…）</p>
+</blockquote>
+<p><strong>2.3字节码验证</strong></p>
+<p>上一步对元数据进行验证后，接下来就是对方法体进行验证了。</p>
+<p>其实这步应该叫code属性的校验（Code为类中的方法体属性）比较准确。</p>
+<blockquote>
+<p>整个验证过程最复杂的一步，通过<strong>数据流和控制流来分析程序的语义是合法，符合逻辑的</strong>。保证方法运行时不会做出错误或者危害虚拟机的行为。</p>
+</blockquote>
+<blockquote>
+<p>验证点，eg：<br>1.保证操作数栈的数据类型的指令代码序列中操作的数据类型一致，不会出现操作数栈是int，指令代码取出的时候按照long来取<br>2.跳转指令不会跳转到方法体以外的字节码指令上<br>3.保证类型转换是正确的</p>
+</blockquote>
+<p><em>通过了Code属性的验证也不一定代表就是方法体中的代码就是安全的，不可能用程序来判定一段程序是否存在Bug</em>（感兴趣的读者可以搜索“停机问题”），这是离散数学中的一个问题。</p>
+<p>参考</p>
+<p><code>https://www.cnblogs.com/iamfatotaku/p/14517223.html</code></p>
+<p><code>https://blog.csdn.net/qq_45272690/article/details/122443424</code></p>
+<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="TCP的三次握手和四次挥手"><a href="#TCP的三次握手和四次挥手" class="headerlink" title="TCP的三次握手和四次挥手"></a>TCP的三次握手和四次挥手</h2><blockquote>
+<p>TCP协议是7层网络协议中的传输层协议，负责数据的可靠传输。在建立TCP连接时，需要通过三次握手来建立，过程是：</p>
+</blockquote>
+<ol>
+<li>客户端向服务端发送一个SYN</li>
+<li>服务端接收到SYN后，给客户端发送一个SYN_ACK</li>
+<li>客户端接收到SYN_ACK后，再给服务端发送一个ACK</li>
+</ol>
+<blockquote>
+<p>在断开TCP连接时，需要通过四次挥手来断开，过程是：</p>
+</blockquote>
+<ol>
+<li>客户端向服务端发送FIN</li>
+<li>服务端接收FIN后,向客户端发送ACK,表示我接收到了断开连接的请求,客户端你可以不发数据了，不过服务端这边可能还有数据正在处理</li>
+<li>服务端处理完所有数据后,向客户端发送FIN,表示服务端现在可以断开连接4·客户端收到服务端的FIN,向服务端发送ACK,表示客户端也会断开连接了</li>
+</ol>
+<pre class="line-numbers language-none"><code class="language-none">SYN是同步序列编号（Synchronize Sequence Number）的缩写，ACK是确认（Acknowledgement）的缩写。
+
+客户端向服务端发送一个SYN，表示请求建立连接，并告诉服务端客户端的初始序列号。
+服务端接收到SYN后，给客户端发送一个SYN_ACK，表示确认客户端的请求，并告诉客户端服务端的初始序列号。
+客户端接收到SYN_ACK后，再给服务端发送一个ACK，表示确认服务端的响应，并告诉服务端客户端的下一个序列号。
+
+因此，ACK中既包含了确认服务端的响应，也包含了客户端的序列号。
+
+SYN是Synchronize的缩写，是TCP协议中用于建立连接的同步标志。ACK是Acknowledgement的缩写，表示确认收到了对方发送的数据。在TCP三次握手过程中，SYN和ACK分别表示以下含义：
+
+客户端发送SYN：表示客户端请求建立连接
+服务端发送SYN_ACK：表示服务端接收到请求并同意建立连接
+客户端发送ACK：表示客户端收到了服务端的同意，并确认连接已建立
+
+因此，在TCP三次握手过程中，SYN和ACK都是用于建立连接和确认收到数据的标志。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">项成康</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://xiangchengkang.github.io/2023/04/04/mian-shi-ti/mian-shi-ti/">https://xiangchengkang.github.io/2023/04/04/mian-shi-ti/mian-shi-ti/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">项成康</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                                    <span class="chip bg-color">面试题</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/">
+                                    <span class="chip bg-color">八股文</span>
+                                </a>
+                            
+                                <a href="/tags/%E5%AE%9E%E4%B9%A0/">
+                                    <span class="chip bg-color">实习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.jpg" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/04/04/jian-li/cheng-xu-yuan-da-bin-mian-shi-shou-ce-v3.5-0114/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="程序员大彬-面试手册v3.5-0114">
+                        
+                        <span class="card-title">程序员大彬-面试手册v3.5-0114</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-04
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-category">
+                                    面试题
+                                </a>
+                            
+                            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/%E5%85%AB%E8%82%A1%E6%96%87/" class="post-category">
+                                    八股文
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">
+                        <span class="chip bg-color">面试题</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%85%AB%E8%82%A1%E6%96%87/">
+                        <span class="chip bg-color">八股文</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/04/03/mian-shi-ti/wang-luo/tcp-san-ci-wo-shou-he-si-ci-hui-shou-yi-ji-11-chong-zhuang-tai/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="TCP三次握手和四次挥手以及11种状态">
+                        
+                        <span class="card-title">TCP三次握手和四次挥手以及11种状态</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-03
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-category">
+                                    计算机网络
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B/">
+                        <span class="chip bg-color">三次握手</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">
+                        <span class="chip bg-color">四次挥手</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">计算机网络</span>
+                    </a>
+                    
+                    <a href="/tags/TCP/">
+                        <span class="chip bg-color">TCP</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+  <!-- 是否加载使用自带的 prismjs. -->
+  <script type="text/javascript" src="/libs/prism/prism.min.js"></script>
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4,h5,h6'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2023</span>
+            
+            <a href="/about" target="_blank">项成康</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+                &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                        class="white-color">30.6k</span>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2023";
+                        var startMonth = "3";
+                        var startDate = "22";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/xiangchengkang" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:2043766637@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2043766637" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2043766637" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+        
+        <script type="text/javascript">
+            // 只在桌面版网页启用特效
+            var windowWidth = $(window).width();
+            if (windowWidth > 768) {
+                document.write('<script type="text/javascript" src="/libs/others/sakura.js"><\/script>');
+            }
+        </script>
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+    <script type="text/javascript" color="0,0,255"
+        pointColor="0,0,255" opacity='0.7'
+        zIndex="-1" count="99"
+        src="/libs/background/canvas-nest.js"></script>
+    
+
+    
+    
+    <script type="text/javascript" size="150" alpha='0.6'
+        zIndex="-1" src="/libs/background/ribbon-refresh.min.js" async="async"></script>
+    
+
+    
+    <script type="text/javascript" src="/libs/background/ribbon-dynamic.js" async="async"></script>
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
