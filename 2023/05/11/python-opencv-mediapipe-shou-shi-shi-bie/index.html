@@ -4,29 +4,17 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="问卷调查系统, hexo,node,博客">
+    <meta name="keywords" content="Python+OpenCV+MediaPipe手势识别, hexo,node,博客">
     <meta name="description" content="
 
+完整代码
 
-表名
-描述
+# 导入需要使用的库
+import cv2  # opencv图像处理库
+import mediapipe as mp  # 谷歌开源的多媒体处理库
+import time  # 时间库
 
-
-
-用户表
-记录用户的基本信息，包括用户名、密码、邮箱等
-
-
-问卷表
-记录问卷的基本信息，包括问卷名、创建者、创建时间等
-
-
-问题表
-记录问题的基本信息，包括问题内容、问题类型等
-
-
-选项表
-记录选项的基本信息，包括选项">
+# 调用OpenCV中的摄像头，0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -38,7 +26,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>问卷调查系统 | 项成康のBlog</title>
+    <title>Python+OpenCV+MediaPipe手势识别 | 项成康のBlog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
     
 
@@ -59,9 +47,7 @@
 
 
 
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
     <link rel="stylesheet" href="/css/post.css">
-
 
 
 
@@ -313,12 +299,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/20.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">问卷调查系统</h1>
+                    <h1 class="description center-align post-title">Python+OpenCV+MediaPipe手势识别</h1>
                 </div>
             </div>
         </div>
@@ -328,12 +314,10 @@
 
 
 
-<main class="post-container content">
+<main class="container content">
 
     
-    <div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
+    <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -342,12 +326,20 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E9%97%AE%E5%8D%B7%E8%B0%83%E6%9F%A5%E7%B3%BB%E7%BB%9F/">
-                                <span class="chip bg-color">问卷调查系统</span>
+                            <a href="/tags/Python/">
+                                <span class="chip bg-color">Python</span>
                             </a>
                         
-                            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                                <span class="chip bg-color">数据库</span>
+                            <a href="/tags/OpenCV/">
+                                <span class="chip bg-color">OpenCV</span>
+                            </a>
+                        
+                            <a href="/tags/MediaPipe/">
+                                <span class="chip bg-color">MediaPipe</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/">
+                                <span class="chip bg-color">手势识别</span>
                             </a>
                         
                     </div>
@@ -358,8 +350,12 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                数据库
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                机器学习
+                            </a>
+                        
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                深度学习
                             </a>
                         
                     </div>
@@ -371,28 +367,28 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-03-28
+                    2023-05-11
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2023-05-10
+                    2023-05-11
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.1k
+                    382
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    4 分
+                    1 分
                 </div>
                 
 
@@ -420,466 +416,67 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <table>
-<thead>
-<tr>
-<th>表名</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>用户表</td>
-<td>记录用户的基本信息，包括用户名、密码、邮箱等</td>
-</tr>
-<tr>
-<td>问卷表</td>
-<td>记录问卷的基本信息，包括问卷名、创建者、创建时间等</td>
-</tr>
-<tr>
-<td>问题表</td>
-<td>记录问题的基本信息，包括问题内容、问题类型等</td>
-</tr>
-<tr>
-<td>选项表</td>
-<td>记录选项的基本信息，包括选项内容、关联的问题等</td>
-</tr>
-<tr>
-<td>答题记录表</td>
-<td>记录用户答题的详细信息，包括答题时间、选项选择等</td>
-</tr>
-<tr>
-<td>问卷统计表</td>
-<td>记录问卷的统计信息，包括回答人数、各问题的答题情况等</td>
-</tr>
-<tr>
-<td>用户反馈表</td>
-<td>记录用户对问卷调查系统的反馈意见和建议</td>
-</tr>
-<tr>
-<td>系统日志表</td>
-<td>记录系统的操作日志，包括用户登录、数据修改等</td>
-</tr>
-<tr>
-<td>权限管理表</td>
-<td>记录各用户的权限信息，包括管理员、普通用户等</td>
-</tr>
-<tr>
-<td>邮件发送表</td>
-<td>记录系统发送的邮件信息，包括收件人、主题、内容等</td>
-</tr>
-<tr>
-<td>问卷结果表</td>
-<td>记录问卷调查结果的详细信息，包括各问题的选项分布情况等</td>
-</tr>
-<tr>
-<td>问卷分类表</td>
-<td>记录问卷的分类信息，方便用户进行搜索和筛选</td>
-</tr>
-<tr>
-<td>标签管理表</td>
-<td>记录问卷的标签信息，方便用户进行搜索和筛选</td>
-</tr>
-</tbody></table>
-<h1 id="用户表"><a href="#用户表" class="headerlink" title="用户表"></a><strong>用户表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">user_id</td>
-<td align="center">int</td>
-<td align="left">用户ID，主键</td>
-</tr>
-<tr>
-<td align="center">username</td>
-<td align="center">varchar</td>
-<td align="left">用户名</td>
-</tr>
-<tr>
-<td align="center">password</td>
-<td align="center">varchar</td>
-<td align="left">密码</td>
-</tr>
-<tr>
-<td align="center">email</td>
-<td align="center">varchar</td>
-<td align="left">邮箱</td>
-</tr>
-<tr>
-<td align="center">created_at</td>
-<td align="center">datetime</td>
-<td align="left">创建时间</td>
-</tr>
-</tbody></table>
-<h1 id="问卷表"><a href="#问卷表" class="headerlink" title="问卷表"></a><strong>问卷表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">survey_id</td>
-<td align="center">int</td>
-<td align="left">问卷ID，主键</td>
-</tr>
-<tr>
-<td align="center">survey_name</td>
-<td align="center">varchar</td>
-<td align="left">问卷名</td>
-</tr>
-<tr>
-<td align="center">creator_id</td>
-<td align="center">int</td>
-<td align="left">创建者用户ID</td>
-</tr>
-<tr>
-<td align="center">created_at</td>
-<td align="center">datetime</td>
-<td align="left">创建时间</td>
-</tr>
-<tr>
-<td align="center">status</td>
-<td align="center">varchar</td>
-<td align="left">问卷状态(草稿/发布)</td>
-</tr>
-</tbody></table>
-<h1 id="问题表"><a href="#问题表" class="headerlink" title="问题表"></a><strong>问题表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">question_id</td>
-<td align="center">int</td>
-<td align="left">问题ID，主键</td>
-</tr>
-<tr>
-<td align="center">content</td>
-<td align="center">varchar</td>
-<td align="left">问题内容</td>
-</tr>
-<tr>
-<td align="center">survey_id</td>
-<td align="center">int</td>
-<td align="left">问题所属的问卷ID</td>
-</tr>
-<tr>
-<td align="center">question_type</td>
-<td align="center">varchar</td>
-<td align="left">问题类型(单选/多选/文本/评分)</td>
-</tr>
-<tr>
-<td align="center">is_required</td>
-<td align="center">boolean</td>
-<td align="left">是否必填</td>
-</tr>
-</tbody></table>
-<h1 id="选项表"><a href="#选项表" class="headerlink" title="选项表"></a><strong>选项表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">option_id</td>
-<td align="center">int</td>
-<td align="left">选项ID，主键</td>
-</tr>
-<tr>
-<td align="center">option_content</td>
-<td align="center">varchar</td>
-<td align="left">选项内容</td>
-</tr>
-<tr>
-<td align="center">question_id</td>
-<td align="center">int</td>
-<td align="left">选项对应的问题ID</td>
-</tr>
-</tbody></table>
-<h1 id="答题记录表"><a href="#答题记录表" class="headerlink" title="答题记录表"></a><strong>答题记录表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">response_id</td>
-<td align="center">int</td>
-<td align="left">答题记录ID，主键</td>
-</tr>
-<tr>
-<td align="center">respondent_id</td>
-<td align="center">int</td>
-<td align="left">答题人ID</td>
-</tr>
-<tr>
-<td align="center">survey_id</td>
-<td align="center">int</td>
-<td align="left">答题问卷ID</td>
-</tr>
-<tr>
-<td align="center">question_id</td>
-<td align="center">int</td>
-<td align="left">答题问题ID</td>
-</tr>
-<tr>
-<td align="center">option_id</td>
-<td align="center">int</td>
-<td align="left">答题问题所选选项ID</td>
-</tr>
-<tr>
-<td align="center">text_answer</td>
-<td align="center">varchar</td>
-<td align="left">答题填空题的文本答案</td>
-</tr>
-</tbody></table>
-<h1 id="问卷统计表"><a href="#问卷统计表" class="headerlink" title="问卷统计表"></a><strong>问卷统计表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">survey_id</td>
-<td align="center">int</td>
-<td align="left">问卷ID，主键</td>
-</tr>
-<tr>
-<td align="center">respondent_num</td>
-<td align="center">int</td>
-<td align="left">回答人数</td>
-</tr>
-<tr>
-<td align="center">question_id</td>
-<td align="center">int</td>
-<td align="left">问题ID</td>
-</tr>
-<tr>
-<td align="center">answer</td>
-<td align="center">text</td>
-<td align="left">问题选项的答题率统计</td>
-</tr>
-</tbody></table>
-<h1 id="用户反馈表"><a href="#用户反馈表" class="headerlink" title="用户反馈表"></a><strong>用户反馈表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">feedback_id</td>
-<td align="center">int</td>
-<td align="left">反馈ID，主键</td>
-</tr>
-<tr>
-<td align="center">user_id</td>
-<td align="center">int</td>
-<td align="left">用户ID</td>
-</tr>
-<tr>
-<td align="center">content</td>
-<td align="center">varchar</td>
-<td align="left">反馈内容</td>
-</tr>
-</tbody></table>
-<h1 id="系统日志表"><a href="#系统日志表" class="headerlink" title="系统日志表"></a><strong>系统日志表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">log_id</td>
-<td align="center">int</td>
-<td align="left">日志ID，主键</td>
-</tr>
-<tr>
-<td align="center">user_id</td>
-<td align="center">int</td>
-<td align="left">操作者用户ID</td>
-</tr>
-<tr>
-<td align="center">operation</td>
-<td align="center">varchar</td>
-<td align="left">操作类型</td>
-</tr>
-<tr>
-<td align="center">description</td>
-<td align="center">varchar</td>
-<td align="left">操作描述</td>
-</tr>
-<tr>
-<td align="center">created_at</td>
-<td align="center">datetime</td>
-<td align="left">操作时间</td>
-</tr>
-</tbody></table>
-<h1 id="权限管理表"><a href="#权限管理表" class="headerlink" title="权限管理表"></a><strong>权限管理表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">auth_id</td>
-<td align="center">int</td>
-<td align="left">权限ID，主键</td>
-</tr>
-<tr>
-<td align="center">user_id</td>
-<td align="center">int</td>
-<td align="left">用户ID</td>
-</tr>
-<tr>
-<td align="center">auth_level</td>
-<td align="center">varchar</td>
-<td align="left">权限等级(管理员/普通用户)</td>
-</tr>
-</tbody></table>
-<h1 id="邮件发送表"><a href="#邮件发送表" class="headerlink" title="邮件发送表"></a><strong>邮件发送表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">email_id</td>
-<td align="center">int</td>
-<td align="left">邮件ID，主键</td>
-</tr>
-<tr>
-<td align="center">recipients</td>
-<td align="center">varchar</td>
-<td align="left">收件人</td>
-</tr>
-<tr>
-<td align="center">subject</td>
-<td align="center">varchar</td>
-<td align="left">邮件主题</td>
-</tr>
-<tr>
-<td align="center">content</td>
-<td align="center">text</td>
-<td align="left">邮件内容</td>
-</tr>
-<tr>
-<td align="center">sent_at</td>
-<td align="center">datetime</td>
-<td align="left">发送时间</td>
-</tr>
-</tbody></table>
-<h1 id="问卷结果表"><a href="#问卷结果表" class="headerlink" title="问卷结果表"></a><strong>问卷结果表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">survey_id</td>
-<td align="center">int</td>
-<td align="left">问卷ID，主键</td>
-</tr>
-<tr>
-<td align="center">question_id</td>
-<td align="center">int</td>
-<td align="left">问题ID</td>
-</tr>
-<tr>
-<td align="center">answer</td>
-<td align="center">text</td>
-<td align="left">问题选项的答案分布</td>
-</tr>
-</tbody></table>
-<h1 id="问卷分类表"><a href="#问卷分类表" class="headerlink" title="问卷分类表"></a><strong>问卷分类表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">category_id</td>
-<td align="center">int</td>
-<td align="left">分类ID，主键</td>
-</tr>
-<tr>
-<td align="center">category_name</td>
-<td align="center">varchar</td>
-<td align="left">分类名称</td>
-</tr>
-<tr>
-<td align="center">survey_id</td>
-<td align="center">int</td>
-<td align="left">问卷ID</td>
-</tr>
-</tbody></table>
-<h1 id="标签管理表"><a href="#标签管理表" class="headerlink" title="标签管理表"></a><strong>标签管理表</strong></h1><table>
-<thead>
-<tr>
-<th align="center">字段名</th>
-<th align="center">数据类型</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">tag_id</td>
-<td align="center">int</td>
-<td align="left">标签ID，主键</td>
-</tr>
-<tr>
-<td align="center">tag_name</td>
-<td align="center">varchar</td>
-<td align="left">标签名称</td>
-</tr>
-<tr>
-<td align="center">survey_id</td>
-<td align="center">int</td>
-<td align="left">问卷ID</td>
-</tr>
-</tbody></table>
-<h1 id="一个可能的技术选型如下："><a href="#一个可能的技术选型如下：" class="headerlink" title="一个可能的技术选型如下："></a>一个可能的技术选型如下：</h1><ol>
-<li><p>前端框架：Vue.js，用于构建用户界面和交互体验。</p>
-</li>
-<li><p>后端技术：Java，可用于开发问卷提交、管理、分析等功能的服务端程序。</p>
-</li>
-<li><p>数据库技术：MySQL，用于存储用户提交的问卷数据和用户信息。</p>
-</li>
-<li><p>数据可视化技术：ECharts，用于分析和可视化问卷数据，帮助用户更好地理解和利用收集到的数据。</p>
-</li>
-<li><p>安全技术：使用密码哈希、SSL、主机身份验证等技术确保问卷数据和用户信息的安全。</p>
-</li>
-<li><p>测试框架：Junit，用于测试问卷系统的功能和性能，确保系统的稳定性和可靠性。</p>
-</li>
-<li><p>UI框架：Element UI，用于加速前端的开发和维护。</p>
-</li>
-<li><p>调研手段：Google Forms、SurveyMonkey、Typeform等已有的调查工具，可以为构建问卷调查系统提供不少参考和借鉴。</p>
-</li>
-</ol>
+                <p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB.png" alt="手势识别"></p>
+<blockquote>
+<p>完整代码</p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 导入需要使用的库</span>
+<span class="token keyword">import</span> cv2  <span class="token comment"># opencv图像处理库</span>
+<span class="token keyword">import</span> mediapipe <span class="token keyword">as</span> mp  <span class="token comment"># 谷歌开源的多媒体处理库</span>
+<span class="token keyword">import</span> time  <span class="token comment"># 时间库</span>
+
+<span class="token comment"># 调用OpenCV中的摄像头，0为内置摄像头，1为第一个外部摄像头，以此类推</span>
+cap <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 定义并初始化MediaPipe库中的手部检测模块</span>
+mpHands <span class="token operator">=</span> mp<span class="token punctuation">.</span>solutions<span class="token punctuation">.</span>hands
+hands <span class="token operator">=</span> mpHands<span class="token punctuation">.</span>Hands<span class="token punctuation">(</span><span class="token punctuation">)</span>
+mpDraw <span class="token operator">=</span> mp<span class="token punctuation">.</span>solutions<span class="token punctuation">.</span>drawing_utils
+
+<span class="token comment"># 初始化计算FPS所需的变量</span>
+pTime <span class="token operator">=</span> <span class="token number">0</span>
+cTime <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token comment"># 循环读取摄像头中的图像</span>
+<span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+    success<span class="token punctuation">,</span> img <span class="token operator">=</span> cap<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span>  <span class="token comment"># 读取摄像头中的图像</span>
+    imgRGB <span class="token operator">=</span> cv2<span class="token punctuation">.</span>cvtColor<span class="token punctuation">(</span>img<span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>COLOR_BGR2RGB<span class="token punctuation">)</span>  <span class="token comment"># 将BGR格式的图像转换为RGB格式，以便使用MediaPipe处理</span>
+
+    <span class="token comment"># 使用MediaPipe库检测手部关键点</span>
+    results <span class="token operator">=</span> hands<span class="token punctuation">.</span>process<span class="token punctuation">(</span>imgRGB<span class="token punctuation">)</span>
+
+    <span class="token comment"># 判断是否检测到了手部关键点</span>
+    <span class="token keyword">if</span> results<span class="token punctuation">.</span>multi_hand_landmarks<span class="token punctuation">:</span>
+        <span class="token keyword">for</span> handLms <span class="token keyword">in</span> results<span class="token punctuation">.</span>multi_hand_landmarks<span class="token punctuation">:</span>
+            <span class="token comment"># 遍历每一个检测到的手</span>
+            <span class="token keyword">for</span> <span class="token builtin">id</span><span class="token punctuation">,</span> lm <span class="token keyword">in</span> <span class="token builtin">enumerate</span><span class="token punctuation">(</span>handLms<span class="token punctuation">.</span>landmark<span class="token punctuation">)</span><span class="token punctuation">:</span>
+                <span class="token comment"># 获取手关键点在图像中的坐标</span>
+                h<span class="token punctuation">,</span> w<span class="token punctuation">,</span> c <span class="token operator">=</span> img<span class="token punctuation">.</span>shape
+                cx<span class="token punctuation">,</span> cy <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>lm<span class="token punctuation">.</span>x <span class="token operator">*</span> w<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">(</span>lm<span class="token punctuation">.</span>y <span class="token operator">*</span> h<span class="token punctuation">)</span>
+                <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token builtin">id</span><span class="token punctuation">,</span> cx<span class="token punctuation">,</span> cy<span class="token punctuation">)</span>
+                <span class="token comment"># 在图像中绘制手关键点</span>
+                cv2<span class="token punctuation">.</span>circle<span class="token punctuation">(</span>img<span class="token punctuation">,</span> <span class="token punctuation">(</span>cx<span class="token punctuation">,</span> cy<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>FILLED<span class="token punctuation">)</span>
+
+            <span class="token comment"># 绘制手部特征点的连线</span>
+            mpDraw<span class="token punctuation">.</span>draw_landmarks<span class="token punctuation">(</span>img<span class="token punctuation">,</span> handLms<span class="token punctuation">,</span> mpHands<span class="token punctuation">.</span>HAND_CONNECTIONS<span class="token punctuation">)</span>
+
+    <span class="token comment"># 计算FPS并显示在图像上</span>
+    cTime <span class="token operator">=</span> time<span class="token punctuation">.</span>time<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    fps <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token punctuation">(</span>cTime <span class="token operator">-</span> pTime<span class="token punctuation">)</span>
+    pTime <span class="token operator">=</span> cTime
+    cv2<span class="token punctuation">.</span>putText<span class="token punctuation">(</span>img<span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">(</span>fps<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">70</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>FONT_HERSHEY_PLAIN<span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">255</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">255</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># 创建窗口</span>
+    cv2<span class="token punctuation">.</span>namedWindow<span class="token punctuation">(</span><span class="token string">"HandsImage"</span><span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>WINDOW_NORMAL<span class="token punctuation">)</span>
+    <span class="token comment"># 调整窗口大小</span>
+    cv2<span class="token punctuation">.</span>resizeWindow<span class="token punctuation">(</span><span class="token string">"HandsImage"</span><span class="token punctuation">,</span> <span class="token number">800</span><span class="token punctuation">,</span> <span class="token number">600</span><span class="token punctuation">)</span>
+
+    <span class="token comment"># 在窗口中显示图像，并检测是否按下了'q'键，如果按下则退出循环</span>
+    cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">"HandsImage"</span><span class="token punctuation">,</span> img<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span> <span class="token operator">==</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'q'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">break</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
 
                 
             </div>
@@ -906,7 +503,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://xiangchengkang.github.io/2023/03/28/wen-juan-diao-cha-xi-tong/">https://xiangchengkang.github.io/2023/03/28/wen-juan-diao-cha-xi-tong/</a>
+                    <a href="https://xiangchengkang.github.io/2023/05/11/python-opencv-mediapipe-shou-shi-shi-bie/">https://xiangchengkang.github.io/2023/05/11/python-opencv-mediapipe-shou-shi-shi-bie/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -944,12 +541,20 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E9%97%AE%E5%8D%B7%E8%B0%83%E6%9F%A5%E7%B3%BB%E7%BB%9F/">
-                                    <span class="chip bg-color">问卷调查系统</span>
+                                <a href="/tags/Python/">
+                                    <span class="chip bg-color">Python</span>
                                 </a>
                             
-                                <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                                    <span class="chip bg-color">数据库</span>
+                                <a href="/tags/OpenCV/">
+                                    <span class="chip bg-color">OpenCV</span>
+                                </a>
+                            
+                                <a href="/tags/MediaPipe/">
+                                    <span class="chip bg-color">MediaPipe</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/">
+                                    <span class="chip bg-color">手势识别</span>
                                 </a>
                             
                         </div>
@@ -1025,17 +630,18 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/03/30/shen-wang/shen-wang/">
+                <a href="/2023/05/11/python-opencv-mediapipe-shou-shi-shi-bie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="深网">
+                        <img src="/medias/featureimages/20.jpg" class="responsive-img" alt="Python+OpenCV+MediaPipe手势识别">
                         
-                        <span class="card-title">深网</span>
+                        <span class="card-title">Python+OpenCV+MediaPipe手势识别</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1045,16 +651,45 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-03-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-11
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            项成康
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    机器学习
+                                </a>
+                            
+                            <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    深度学习
+                                </a>
+                            
                             
                         </span>
                     </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Python/">
+                        <span class="chip bg-color">Python</span>
+                    </a>
+                    
+                    <a href="/tags/OpenCV/">
+                        <span class="chip bg-color">OpenCV</span>
+                    </a>
+                    
+                    <a href="/tags/MediaPipe/">
+                        <span class="chip bg-color">MediaPipe</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/">
+                        <span class="chip bg-color">手势识别</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -1066,13 +701,13 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/03/28/shu-ju-ku/shu-ju-ku/">
+                <a href="/2023/05/10/hello-world/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="数据库办公系统">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
                         
-                        <span class="card-title">数据库办公系统</span>
+                        <span class="card-title">Hello World</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -1083,14 +718,14 @@
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-03-28
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-05-10
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-category">
-                                    数据库
+                            <a href="/categories/world/" class="post-category">
+                                    world
                                 </a>
                             
                             
@@ -1100,24 +735,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/">
-                        <span class="chip bg-color">数据库</span>
-                    </a>
-                    
-                    <a href="/tags/powerdesigner/">
-                        <span class="chip bg-color">powerdesigner</span>
-                    </a>
-                    
-                    <a href="/tags/%E6%A6%82%E5%BF%B5%E6%A8%A1%E5%9E%8B%E5%9B%BE/">
-                        <span class="chip bg-color">概念模型图</span>
-                    </a>
-                    
-                    <a href="/tags/E-R%E5%9B%BE/">
-                        <span class="chip bg-color">E-R图</span>
-                    </a>
-                    
-                    <a href="/tags/Oracle/">
-                        <span class="chip bg-color">Oracle</span>
+                    <a href="/tags/vue/">
+                        <span class="chip bg-color">vue</span>
                     </a>
                     
                 </div>
@@ -1156,87 +775,6 @@
 
 
 
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget card" style="background-color: white;">
-            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
-</div>
-
-<!-- TOC 悬浮按钮. -->
-
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fas fa-list-ul"></i>
-    </a>
-</div>
-
-
-<script src="/libs/tocbot/tocbot.min.js"></script>
-<script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            collapseDepth: Number('0'),
-            headingSelector: 'h1, h2, h3, h4,h5,h6'
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
-
-        
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
-
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).hide();
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).show();
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
-    });
-</script>
-
     
 
 </main>
@@ -1261,7 +799,7 @@
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">33.8k</span>
+                        class="white-color">27.1k</span>
             
             
             
