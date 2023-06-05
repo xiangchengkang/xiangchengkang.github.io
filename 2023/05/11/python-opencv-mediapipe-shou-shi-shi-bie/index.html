@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="Python+OpenCV+MediaPipe手势识别, hexo,node,博客">
-    <meta name="description" content="
+    <meta name="description" content="手势识别
 
 完整代码
 
@@ -14,7 +14,7 @@ import cv2  # opencv图像处理库
 import mediapipe as mp  # 谷歌开源的多媒体处理库
 import time  # 时间库
 
-# 调用OpenCV中的摄像头，0">
+# 调用OpenCV中的摄">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -47,7 +47,9 @@ import time  # 时间库
 
 
 
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
     <link rel="stylesheet" href="/css/post.css">
+
 
 
 
@@ -314,10 +316,12 @@ import time  # 时间库
 
 
 
-<main class="container content">
+<main class="post-container content">
 
     
-    <!-- 文章内容详情 -->
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
 <div id="artDetail">
     <div class="card">
         <div class="card-content article-info">
@@ -381,14 +385,14 @@ import time  # 时间库
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    382
+                    775
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    3 分
                 </div>
                 
 
@@ -416,7 +420,7 @@ import time  # 时间库
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB.png" alt="手势识别"></p>
+                <h1 id="手势识别"><a href="#手势识别" class="headerlink" title="手势识别"></a>手势识别</h1><p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB.png" alt="手势识别"></p>
 <blockquote>
 <p>完整代码</p>
 </blockquote>
@@ -476,6 +480,82 @@ cTime <span class="token operator">=</span> <span class="token number">0</span>
     <span class="token keyword">if</span> cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span> <span class="token operator">==</span> <span class="token builtin">ord</span><span class="token punctuation">(</span><span class="token string">'q'</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
         <span class="token keyword">break</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+
+
+<h1 id="脸部识别"><a href="#脸部识别" class="headerlink" title="脸部识别"></a>脸部识别</h1><p><img src="https://xiangchengkang-img.oss-cn-nanjing.aliyuncs.com/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%89%8B%E5%8A%BF%E8%AF%86%E5%88%AB/%E8%84%B8%E9%83%A8%E8%AF%86%E5%88%AB.png" alt="脸部识别"></p>
+<blockquote>
+<p>完整代码</p>
+</blockquote>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> cv2
+<span class="token keyword">import</span> mediapipe <span class="token keyword">as</span> mp
+<span class="token keyword">import</span> time
+
+<span class="token comment"># 导入绘图工具和面部关键点模型</span>
+mp_drawing <span class="token operator">=</span> mp<span class="token punctuation">.</span>solutions<span class="token punctuation">.</span>drawing_utils
+mp_face_mesh <span class="token operator">=</span> mp<span class="token punctuation">.</span>solutions<span class="token punctuation">.</span>face_mesh
+
+<span class="token comment"># 绘图配置</span>
+drawing_spec <span class="token operator">=</span> mp_drawing<span class="token punctuation">.</span>DrawingSpec<span class="token punctuation">(</span>thickness<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">,</span> circle_radius<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 打开摄像头</span>
+cap <span class="token operator">=</span> cv2<span class="token punctuation">.</span>VideoCapture<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 开启面部关键点检测器</span>
+<span class="token keyword">with</span> mp_face_mesh<span class="token punctuation">.</span>FaceMesh<span class="token punctuation">(</span>
+        min_detection_confidence<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token comment"># 面部检测置信度阈值</span>
+        min_tracking_confidence<span class="token operator">=</span><span class="token number">0.5</span><span class="token punctuation">)</span> <span class="token keyword">as</span> face_mesh<span class="token punctuation">:</span> <span class="token comment"># 面部追踪置信度阈值</span>
+
+    <span class="token comment"># 循环读取每一帧图像</span>
+    <span class="token keyword">while</span> cap<span class="token punctuation">.</span>isOpened<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        success<span class="token punctuation">,</span> image <span class="token operator">=</span> cap<span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment"># 读取一帧图像</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> success<span class="token punctuation">:</span> <span class="token comment"># 如果读取失败，跳过这一帧</span>
+            <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Ignoring empty camera frame."</span><span class="token punctuation">)</span>
+            <span class="token comment"># 如果是从视频文件中读取图像，使用 'break' 跳出循环</span>
+            <span class="token keyword">continue</span>
+
+        <span class="token comment"># 将图像水平翻转，以便后面进行自拍视图显示，并将 BGR 图像转换为 RGB</span>
+        image <span class="token operator">=</span> cv2<span class="token punctuation">.</span>cvtColor<span class="token punctuation">(</span>cv2<span class="token punctuation">.</span>flip<span class="token punctuation">(</span>image<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>COLOR_BGR2RGB<span class="token punctuation">)</span>
+
+        <span class="token comment"># 为了提高性能，可以将图像标记为不可写，以通过引用传递</span>
+        image<span class="token punctuation">.</span>flags<span class="token punctuation">.</span>writeable <span class="token operator">=</span> <span class="token boolean">False</span>
+
+        <span class="token comment"># 进行面部关键点检测</span>
+        results <span class="token operator">=</span> face_mesh<span class="token punctuation">.</span>process<span class="token punctuation">(</span>image<span class="token punctuation">)</span>
+
+        <span class="token comment"># 等待一段时间，避免图像卡顿</span>
+        time<span class="token punctuation">.</span>sleep<span class="token punctuation">(</span><span class="token number">0.02</span><span class="token punctuation">)</span>
+
+        <span class="token comment"># 将图像标记为可写</span>
+        image<span class="token punctuation">.</span>flags<span class="token punctuation">.</span>writeable <span class="token operator">=</span> <span class="token boolean">True</span>
+
+        <span class="token comment"># 将 RGB 图像转换为 BGR</span>
+        image <span class="token operator">=</span> cv2<span class="token punctuation">.</span>cvtColor<span class="token punctuation">(</span>image<span class="token punctuation">,</span> cv2<span class="token punctuation">.</span>COLOR_RGB2BGR<span class="token punctuation">)</span>
+
+        <span class="token comment"># 如果检测到面部关键点</span>
+        <span class="token keyword">if</span> results<span class="token punctuation">.</span>multi_face_landmarks<span class="token punctuation">:</span>
+            <span class="token keyword">for</span> face_landmarks <span class="token keyword">in</span> results<span class="token punctuation">.</span>multi_face_landmarks<span class="token punctuation">:</span>
+                <span class="token comment"># 在图像上绘制面部关键点和连接线</span>
+                mp_drawing<span class="token punctuation">.</span>draw_landmarks<span class="token punctuation">(</span>
+                    image<span class="token operator">=</span>image<span class="token punctuation">,</span>
+                    landmark_list<span class="token operator">=</span>face_landmarks<span class="token punctuation">,</span>
+                    connections<span class="token operator">=</span>mp_face_mesh<span class="token punctuation">.</span>FACEMESH_TESSELATION<span class="token punctuation">,</span> <span class="token comment"># 使用三角剖分的方式绘制面部连接线</span>
+                    landmark_drawing_spec<span class="token operator">=</span>drawing_spec<span class="token punctuation">,</span>
+                    connection_drawing_spec<span class="token operator">=</span>drawing_spec<span class="token punctuation">)</span>
+
+        <span class="token comment"># 在窗口中显示图像</span>
+        cv2<span class="token punctuation">.</span>imshow<span class="token punctuation">(</span><span class="token string">'MediaPipe FaceMesh'</span><span class="token punctuation">,</span> image<span class="token punctuation">)</span>
+
+        <span class="token comment"># 如果按下 ESC 键，跳出循环</span>
+        <span class="token keyword">if</span> cv2<span class="token punctuation">.</span>waitKey<span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token number">0xFF</span> <span class="token operator">==</span> <span class="token number">27</span><span class="token punctuation">:</span>
+            <span class="token keyword">break</span>
+
+<span class="token comment"># 释放摄像头资源</span>
+cap<span class="token punctuation">.</span>release<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 关闭所有窗口</span>
+cv2<span class="token punctuation">.</span>destroyAllWindows<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 
                 
@@ -775,6 +855,87 @@ cTime <span class="token operator">=</span> <span class="token number">0</span>
 
 
 
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h1, h2, h3, h4,h5,h6'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
     
 
 </main>
@@ -799,7 +960,7 @@ cTime <span class="token operator">=</span> <span class="token number">0</span>
             <br>
             
                 &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
-                        class="white-color">27.1k</span>
+                        class="white-color">31k</span>
             
             
             
